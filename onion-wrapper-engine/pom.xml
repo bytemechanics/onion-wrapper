@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.bytemechanics</groupId>
+        <artifactId>onion-wrapper</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>onion-wrapper-engine</artifactId>
+    <packaging>jar</packaging>
+	<name>Onion Wrapper - Engine</name>
+	<description>Source wrapper generator for java classes</description>
+	<url>https://onion-wrapper.bytemechanics.org</url>
+	
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>onion-wrapper-annotations</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.javaparser</groupId>
+			<artifactId>javaparser-core</artifactId>
+			<version>3.13.10</version>
+		</dependency>
+	</dependencies>
+</project>
