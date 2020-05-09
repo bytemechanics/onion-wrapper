@@ -19,9 +19,24 @@
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>org.bytemechanics</groupId>
+			<artifactId>fluent-logger</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.bytemechanics</groupId>
+			<artifactId>copy-commons</artifactId>
+			<version>1.5.0</version>
+		</dependency>
+		<dependency>
 			<groupId>com.github.javaparser</groupId>
 			<artifactId>javaparser-core</artifactId>
 			<version>3.13.10</version>
+		</dependency>
+		<dependency>
+			<groupId>org.reflections</groupId>
+			<artifactId>reflections</artifactId>
+			<version>0.9.12</version>
 		</dependency>
 	</dependencies>
 </project>

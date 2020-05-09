@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 
 /**
  *
- * @author E103880
+ * @author afarre
  */
 public class SourceScanner{
 

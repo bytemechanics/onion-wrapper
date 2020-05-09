@@ -7,7 +7,7 @@ import java.util.Optional;
 
 /**
  *
- * @author E103880
+ * @author afarre
  */
 public class JavaSourceClass {
 

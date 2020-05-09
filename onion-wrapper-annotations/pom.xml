@@ -8,7 +8,7 @@
     </parent>
     <artifactId>onion-wrapper-annotations</artifactId>
     <packaging>jar</packaging>
-	<name>Onion Wrapper - Annontations</name>
+	<name>Onion Wrapper - Annotations</name>
 	<description>Annotations to of source wrapper generator for java classes</description>
 	<url>https://onion-wrapper.bytemechanics.org</url>
 </project>
