@@ -37,13 +37,13 @@ public class WrapperEngine {
 										.collect(Collectors.toMap(GeneratorFactory::getName,generatorFactory -> generatorFactory));
 	}
 	
-	public boolean wrapperRequested(final JavaSourceClass _sourceClass){
+	public static boolean wrapperRequested(final JavaSourceClass _sourceClass){
 		return _sourceClass.isAnnotationPresent(Wrap.class) || _sourceClass.isAnnotationPresent(Wrappers.class);
 	}
-	public boolean isWrappable(final JavaSourceClass _sourceClass){
+	public static boolean isWrappable(final JavaSourceClass _sourceClass){
 		return _sourceClass.isClass();
 	}	
-	public JavaSourceClass generateWrapper(final JavaSourceClass _sourceClass){
+	public static JavaSourceClass generateWrapper(final JavaSourceClass _sourceClass){
 		return null;
 	}	
 }

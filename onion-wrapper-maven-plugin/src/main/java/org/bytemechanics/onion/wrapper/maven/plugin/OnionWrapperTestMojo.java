@@ -25,16 +25,16 @@ import org.bytemechanics.onion.wrapper.maven.plugin.enums.Scope;
  * Test onion wrapper generator plugin Mojo
  * @author afarre
  */
-@Mojo(name="onion-wrapper",defaultPhase = LifecyclePhase.GENERATE_SOURCES)
-public class OnionWrapperMojo extends OnionWrapperBase {
-
+@Mojo(name="onion-wrapper-test",defaultPhase = LifecyclePhase.GENERATE_TEST_SOURCES)
+public class OnionWrapperTestMojo extends OnionWrapperBase {
+	
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {
 
 		try{
-			generateSources(Scope.SRC);
+			generateSources(Scope.TEST);
 		}catch(Exception e){
-			throw new MojoFailureException("Can not generate source wrappers", e);
+			throw new MojoFailureException("Can not generate test source wrappers", e);
 		}
 	}
 }

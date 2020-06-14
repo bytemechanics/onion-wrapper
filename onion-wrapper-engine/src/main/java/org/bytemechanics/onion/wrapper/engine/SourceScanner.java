@@ -1,8 +1,10 @@
 package org.bytemechanics.onion.wrapper.engine;
 
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -16,18 +18,20 @@ import java.util.stream.Stream;
 public class SourceScanner{
 
 	private static final String JAVA_EXTENSION=".java";
-	private static final List<String> DEFAULT_SCAN=Stream.of("").collect(Collectors.toList());
+	private static final List<String> DEFAULT_SCAN=Stream.of(".").collect(Collectors.toList());
 	
 	
 	protected static boolean notEmtpyList(final List _list){
 		return !_list.isEmpty();
 	}
-	protected static Stream<String> packagesToScan(final String... _packagesToScan){
+	protected static Stream<Path> packagesToScan(final String... _packagesToScan){
 		return Optional.ofNullable(_packagesToScan)
 						.map(Arrays::asList)
 						.filter(SourceScanner::notEmtpyList)
 						.orElse(DEFAULT_SCAN)
-							.stream();
+							.stream()
+								.map(packageToScan -> packageToScan.replaceAll("\\.","/"))
+								.map(Paths::get);
 	}
 	protected static Stream<Path> subFolders(final Path _path){
 		
@@ -36,8 +40,8 @@ public class SourceScanner{
 						.filter(Files::exists)
 						.filter(Files::isReadable)
 						.filter(Files::isDirectory);
-		} catch (IOException ex) {
-			return Stream.of(_path);
+		} catch (IOException e) {
+			throw new UncheckedIOException(e);
 		}
 	}
 	protected static Stream<Path> files(final Path _path){
@@ -47,8 +51,8 @@ public class SourceScanner{
 						.filter(Files::exists)
 						.filter(Files::isReadable)
 						.filter(Files::isRegularFile);
-		} catch (IOException ex) {
-			return Stream.of(_path);
+		} catch (IOException e) {
+			throw new UncheckedIOException(e);
 		}
 	}
 	protected static boolean isJavaFile(final Path _path){

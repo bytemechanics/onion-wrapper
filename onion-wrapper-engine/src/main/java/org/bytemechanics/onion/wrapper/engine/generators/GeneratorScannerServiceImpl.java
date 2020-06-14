@@ -56,6 +56,7 @@ public class GeneratorScannerServiceImpl implements GeneratorScannerService{
 				
 		return reply;
 	}
+	@SuppressWarnings("unchecked")
 	protected Class<? extends WrapperGenerator> castToWrapper(final Class _class){
 		return (Class<? extends WrapperGenerator>)_class;
 	}

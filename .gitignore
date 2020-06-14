@@ -24,3 +24,5 @@ hs_err_pid*
 /target/
 /onion-wrapper-annotations/target/
 /onion-wrapper-engine/target/
+/onion-wrapper-maven-plugin/nbproject/
+/onion-wrapper-engine/nbproject/
