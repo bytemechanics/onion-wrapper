@@ -32,7 +32,13 @@ public class JavaSourceClass {
 		return this.internal.isAnnotationPresent(_annotationClass);
 	}
 	public boolean isClass(){
-		return !this.internal.isInterface();
+		return !this.internal.isInterface()&&!this.internal.isEnumDeclaration();
+	}
+	public boolean isInterface(){
+		return this.internal.isInterface();
+	}
+	public boolean isEnum(){
+		return this.internal.isEnumDeclaration();
 	}
 
 	@Override
