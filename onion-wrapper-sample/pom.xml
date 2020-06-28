@@ -6,7 +6,6 @@
         <artifactId>onion-wrapper</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <groupId>org.bytemechanics.onion.wrapper</groupId>
     <artifactId>onion-wrapper-sample</artifactId>
     <packaging>jar</packaging>
 	<name>Onion Wrapper - Sample</name>

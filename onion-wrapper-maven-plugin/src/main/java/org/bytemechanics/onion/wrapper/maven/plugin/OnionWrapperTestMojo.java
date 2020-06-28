@@ -19,6 +19,8 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
+import org.bytemechanics.logger.FluentLogger;
+import org.bytemechanics.logger.factory.LoggerFactoryMavenPluginImpl;
 import org.bytemechanics.onion.wrapper.maven.plugin.enums.Scope;
 
 /**
@@ -31,8 +33,12 @@ public class OnionWrapperTestMojo extends OnionWrapperBase {
 	@Override
 	public void execute() throws MojoExecutionException, MojoFailureException {
 
-		try{
-			generateSources(Scope.TEST);
+		try(LoggerFactoryMavenPluginImpl loggerFactory=new LoggerFactoryMavenPluginImpl(getLog())){
+			final FluentLogger logger=FluentLogger.of(OnionWrapperMojo.class)
+													.prefixed("onion-wrapper::test::");
+			logger.debug("begin");
+			generateSources(logger,Scope.TEST);
+			logger.finest("end");
 		}catch(Exception e){
 			throw new MojoFailureException("Can not generate test source wrappers", e);
 		}

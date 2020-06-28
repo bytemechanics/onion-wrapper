@@ -23,6 +23,7 @@ import mockit.Tested;
 import mockit.Verifications;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.bytemechanics.logger.FluentLogger;
 import org.bytemechanics.onion.wrapper.maven.plugin.enums.Scope;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -56,20 +57,20 @@ public class OnionWrapperTestMojoTest {
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		
 		new Expectations() {{
-			instance.generateSources(Scope.TEST);
+			instance.generateSources((FluentLogger)any,Scope.TEST);
 		}};
 		instance.execute();
 		new Verifications() {{
-			instance.generateSources(Scope.TEST); times=1;
+			instance.generateSources((FluentLogger)any,Scope.TEST); times=1;
 		}};
 	}
 
 	@Test
 	@DisplayName("Execute should with exception should raise mojoFailureException")
-	public void executeFailure() throws MojoExecutionException, MojoFailureException {
+	public void executeFailure(@Mocked FluentLogger _looger) throws MojoExecutionException, MojoFailureException {
 		
 		new Expectations() {{
-			instance.generateSources(Scope.TEST); result=new RuntimeException("errorot");
+			instance.generateSources((FluentLogger)any,Scope.TEST); result=new RuntimeException("errorot");
 		}};
 		Assertions.assertThrows(MojoFailureException.class
 								, () -> instance.execute()

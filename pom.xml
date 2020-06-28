@@ -50,4 +50,12 @@
         <module>onion-wrapper-maven-plugin</module>
         <module>onion-wrapper-sample</module>
     </modules>
+	
+	<dependencies>
+		<dependency>
+			<groupId>org.bytemechanics</groupId>
+			<artifactId>fluent-logger</artifactId>
+			<version>2.2.0</version>
+		</dependency>
+	</dependencies>
 </project>

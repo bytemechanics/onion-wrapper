@@ -20,7 +20,6 @@ import java.io.UncheckedIOException;
 import java.lang.reflect.Method;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -46,55 +45,67 @@ public class SourceScannerTest {
 
 	@BeforeEach
     void beforeEachTest(final TestInfo testInfo) {
-        System.out.println("HALLO");
         System.out.println(">>>>> "+this.getClass().getSimpleName()+" >>>> "+testInfo.getTestMethod().map(Method::getName).orElse("Unkown")+""+testInfo.getTags().toString()+" >>>> "+testInfo.getDisplayName());
 	}
 	
 	
 	@Test
-	@DisplayName("Not empty list should return false if empty")
-	public void testnotEmtpyList_empty() {
-		Assertions.assertFalse(SourceScanner.notEmtpyList(Collections.emptyList()));
-	}
-	@Test
-	@DisplayName("Not empty list should return false if empty")
-	public void notEmtpyList_notEmpty() {
-		Assertions.assertTrue(SourceScanner.notEmtpyList(Stream.of("a","b").collect(Collectors.toList())));
-	}
-
-	@Test
 	@DisplayName("Return list of the given packages")
 	public void packagesToScan() {
 		final String[] packagesToScan=new String[]{"a","b"};
-		Assertions.assertEquals(Stream.of(packagesToScan).collect(Collectors.toList())
-								,SourceScanner.packagesToScan(packagesToScan).collect(Collectors.toList()));
+		Assertions.assertEquals(Stream.of(packagesToScan)
+												.map(Paths::get)
+												.collect(Collectors.toSet())
+								,SourceScanner.packagesToScan(packagesToScan)
+													.collect(Collectors.toSet()));
 	}
 	@Test
 	@DisplayName("Return list of the given packages or an empty list if null")
 	public void packagesToScan_empty() {
-		Assertions.assertEquals(Collections.emptyList()
-								,SourceScanner.packagesToScan().collect(Collectors.toList()));
+		Assertions.assertEquals(Stream.of("")
+												.map(Paths::get)
+												.collect(Collectors.toSet())
+								,SourceScanner.packagesToScan()
+													.collect(Collectors.toSet()));
 	}
 	@Test
 	@DisplayName("Return list of the given packages or an empty list if null")
 	public void packagesToScan_null() {
-		Assertions.assertEquals(Collections.emptyList()
-								,SourceScanner.packagesToScan((String)null).collect(Collectors.toList()));
+		Assertions.assertEquals(Stream.of("")
+												.map(Paths::get)
+												.collect(Collectors.toSet())
+								,SourceScanner.packagesToScan((String[])null)
+													.collect(Collectors.toSet()));
+	}
+	@Test
+	@DisplayName("Return list of the given packages or an empty list if null")
+	public void packagesToScan_null_path() {
+		Assertions.assertEquals(Stream.of("")
+												.map(Paths::get)
+												.collect(Collectors.toSet())
+								,SourceScanner.packagesToScan((String)null)
+													.collect(Collectors.toSet()));
 	}
 
 	static Stream<Arguments> subfoldersDatapack() {
 	    return Stream.of(
-			Arguments.of("src",Stream.of("test","main").collect(Collectors.toSet())),
-			Arguments.of("src/test",Stream.of("com").collect(Collectors.toSet())),
-			Arguments.of("src/resoures",Stream.empty().collect(Collectors.toSet()))
+			Arguments.of("src",Stream.of("test","main")
+															.collect(Collectors.toSet())),
+			Arguments.of("src/test/java",Stream.of("org")
+																	.collect(Collectors.toSet())),
+			Arguments.of("src/test/resources",Stream.empty()
+																		.collect(Collectors.toSet()))
 		);
 	}
 	@ParameterizedTest(name = "subFolders({0}) should return {1}")
 	@MethodSource("subfoldersDatapack")
 	public void subFolders(final String _path,final Set<String> _subfolders) {
 		Path main=Paths.get(_path);
-		Assertions.assertEquals(_subfolders.stream().map(main::resolve).collect(Collectors.toSet())
-								,SourceScanner.subFolders(main).collect(Collectors.toSet()));
+		Assertions.assertEquals(_subfolders.stream()
+													.map(main::resolve)
+													.collect(Collectors.toSet())
+								,SourceScanner.subFolders(main)
+													.collect(Collectors.toSet()));
 	}
 	@Test
 	@DisplayName("List subFolders from null should raise UncheckedIOException")

@@ -24,6 +24,7 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
+import org.bytemechanics.logger.FluentLogger;
 import org.bytemechanics.onion.wrapper.engine.SourceParser;
 import org.bytemechanics.onion.wrapper.engine.SourceScanner;
 import org.bytemechanics.onion.wrapper.engine.SourceWriter;
@@ -108,9 +109,9 @@ public abstract class OnionWrapperBase extends AbstractMojo {
 				
 	}
 	
-	public void generateSources(final Scope _scope) {
+	public void generateSources(final FluentLogger logger,final Scope _scope) {
 		
-		SourceScanner.scan(getSourceFolder(), this.packageScan)
+		SourceScanner.scan(logger,getSourceFolder(), this.packageScan)
 						.flatMap(SourceParser::parse)
 						.filter(WrapperEngine::wrapperRequested)
 						.filter(WrapperEngine::isWrappable)

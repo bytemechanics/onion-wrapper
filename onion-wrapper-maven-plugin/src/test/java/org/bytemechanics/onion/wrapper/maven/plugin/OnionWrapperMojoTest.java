@@ -23,6 +23,7 @@ import mockit.Tested;
 import mockit.Verifications;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.bytemechanics.logger.FluentLogger;
 import org.bytemechanics.onion.wrapper.maven.plugin.enums.Scope;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -56,11 +57,11 @@ public class OnionWrapperMojoTest {
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		
 		new Expectations() {{
-			instance.generateSources(Scope.SRC);
+			instance.generateSources((FluentLogger)any,Scope.SRC);
 		}};
 		instance.execute();
 		new Verifications() {{
-			instance.generateSources(Scope.SRC); times=1;
+			instance.generateSources((FluentLogger)any,Scope.SRC); times=1;
 		}};
 	}
 
@@ -69,7 +70,7 @@ public class OnionWrapperMojoTest {
 	public void executeFailure() throws MojoExecutionException, MojoFailureException {
 		
 		new Expectations() {{
-			instance.generateSources(Scope.SRC); result=new RuntimeException("errorot");
+			instance.generateSources((FluentLogger)any,Scope.SRC); result=new RuntimeException("errorot");
 		}};
 		Assertions.assertThrows(MojoFailureException.class
 								, () -> instance.execute()
