@@ -27,3 +27,8 @@ hs_err_pid*
 /onion-wrapper-maven-plugin/nbproject/
 /onion-wrapper-engine/nbproject/
 /onion-wrapper-sample/target/
+/.idea/
+/onion-wrapper-engine/onion-wrapper-engine.iml
+/onion-wrapper-annotations/onion-wrapper-annotations.iml
+/onion-wrapper-maven-plugin/onion-wrapper-maven-plugin.iml
+/onion-wrapper-sample/onion-wrapper-sample.iml
